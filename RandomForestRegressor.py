@@ -73,11 +73,11 @@ print("Best MAE = ", perfect_mae_2)
     
 features = []
 if perfect_mae_1 < perfect_mae_2:
-    print("Winner: Combination Method with {} MAE\t and features = {}".format(perfect_mae_1, features_1))
+    print("Winner: Combination Method with {} MAE\nand features = {}".format(perfect_mae_1, features_1))
     X = home_data[features_1]
     features = features_1
 else: 
-    print("Winner: Branch and bound Method with {} MAE\t and features = {}".format(perfect_mae_1, features_2))
+    print("Winner: Branch and bound Method with {} MAE\nand features = {}".format(perfect_mae_2, features_2))
     X = home_data[features_2]
     features = features_2
     
