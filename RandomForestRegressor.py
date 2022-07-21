@@ -71,8 +71,34 @@ for feature in all_features:
     print("Validation MAE for Random Forest Model: {:,.0f} with features: {}".format(perfect_mae_2, features_2))
 print("Best MAE = ", perfect_mae_2)
     
-  
+features = []
 if perfect_mae_1 < perfect_mae_2:
     print("Winner: Combination Method with {} MAE\t and features = {}".format(perfect_mae_1, features_1))
+    X = home_data[features_1]
+    features = features_1
 else: 
     print("Winner: Branch and bound Method with {} MAE\t and features = {}".format(perfect_mae_1, features_2))
+    X = home_data[features_2]
+    features = features_2
+    
+# To improve accuracy, we create a new Random Forest model which we will train on all training data
+rf_model_on_full_data = RandomForestRegressor(random_state=1)
+
+# fit rf_model_on_full_data on all data from the training data
+rf_model_on_full_data.fit(X, y)
+# path to file we will use for predictions
+test_data_path = '../input/test.csv'
+# read test data file
+test_data = pd.read_csv(test_data_path)
+
+# create test_X which comes from test_data but includes only the columns we used for prediction.
+# The list of columns is stored in a variable called features
+test_X = test_data[features]
+
+# make predictions 
+test_preds = rf_model_on_full_data.predict(test_X)
+
+# save predictions in the format used for competition scoring
+output = pd.DataFrame({'Id': test_data.Id,
+                       'SalePrice': test_preds})
+output.to_csv('submission.csv', index=False)
