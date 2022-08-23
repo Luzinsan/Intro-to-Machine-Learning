@@ -18,17 +18,10 @@ def handle_test():
 
 def csv_test(file):
     df = pd.read_csv(file, index_col=0)
-    #print('\nDATASET: \n', df)
-    #print('\nDATASET: \n', df.loc[5:10, ['country', 'province', 'region_1', 'region_2']])
-    #df.set_index('points')
-    df.gropby('points')
-    print(df)
+    print('\nDATASET: \n', df)
+    print('\nDATASET: \n', df.loc[5:10, ['country', 'province', 'region_1', 'region_2']])
+    df.set_index('points')
 
+#handle_test()
 
-handle_test()
-
-csv_test('../pandas/data/winemag-data_first150k.csv')
-
-
-import pandas as pd
-
+csv_test('data/winemag-data_first150k.csv')
